@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Hot Restaurants</title>
+    <!-- Latest compiled and minified CSS & JS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <style>
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Hot Restaurants</h1>
+            <h3 id="intro">Reserve your table now!</h3>
+            <hr>
+            <a id="viewRes" href="/reservations"><button class="btn btn-primary btn-lg"><span class="fa fa-list"></span> View Tables</button></a>
+            <a href="/"><button class="btn btn-primary btn-lg"><span class="fa fa-th-home"></span> Home</button></a>
+        </div>
+        <div class="row">
+
+            <div class="col-lg-12">
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h3><strong>Make a Reservation</strong></h3>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="panel panel-default" style="padding:10px">
+
+                            <div class="panel-body">
+                                <form role="form">
+
+                                    <div class="form-group">
+                                        <label for="name">Name</label>
+                                        <input type="text" class="form-control" id="name">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="role">Email</label>
+                                        <input type="text" class="form-control" id="email">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="age">Phone Number</label>
+                                        <input type="text" class="form-control" id="phonenumber">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="force-points">Unique ID</label>
+                                        <input type="text" class="form-control" id="uniqueid">
+                                    </div>
+
+                                </form>
+                                <br>
+                                <div class="text-left">
+                                    <button type="submit" class="btn btn-primary btn-md" id="add-btn"><span class="fa fa-fire"></span>Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <script type="text/javascript">
+                        // Question: What does this code do?
+                        $("#add-btn").on("click", function(event) {
+                          event.preventDefault();
+                    
+                          var newRes = {
+                            name: $("#name").val().trim(),
+                            email: $("#email").val().trim(),
+                            phone: $("#phonenumber").val().trim(),
+                            uniqueID: $("#uniqueid").val().trim()
+                          };
+                        //   console.log(newRes);
+
+                        //   Question: What does this code do??
+                          $.post("/api/reservations", newRes)
+                            .then(function(data) {
+                              console.log(data);
+                              alert("Adding Reservation...");
+                            });
+                    
+                        });
+                      </script>
+
+
+</body>
+
+</html>

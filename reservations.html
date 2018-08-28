@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Hot Restaurants Tables Page</title>
+    <!-- Latest compiled and minified CSS & JS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <style>
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Hot Restaurants</h1>
+            <h3 id="reserved">Current Reservations and Waiting List</h3>
+            <hr>
+            <a id="viewRes" href="/reservations">
+                <button class="btn btn-primary btn-lg">
+                    <span class="fa fa-list"></span> View Tables</button>
+            </a>
+            <a href="/">
+                <button class="btn btn-primary btn-lg">
+                    <span class="fa fa-th-home"></span> Home</button>
+            </a>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5>
+                            <strong>Current Reservations</strong>
+                        </h5>
+                    </div>
+
+                    <div class="panel-body" style="padding:10px">
+                        <ol id="reservation-section" class="list-group">
+
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5>
+                            <strong>Waiting List</strong>
+                        </h5>
+                    </div>
+
+                    <div class="panel-body" style="padding:10px">
+                        <ol id="waitlist-section" class="list-group">
+                            <li>
+                                test
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+
+            $.get("/api/reservations", function (data) {
+                for (var i = 0; i < data[0].length; i++) {
+                    console.log(data[0]);
+                    var listGroupItem = $("<li class='list-group-item'>");
+
+                    listGroupItem.append($("<h2>").text("Name: " + data[0][i].name));
+                    listGroupItem.append($("<h3>").text("Email: " + data[0][i].email));
+                    listGroupItem.append($("<h3>").text("Phone Number: " + data[0][i].phone));
+                    listGroupItem.append($("<h3>").text("Unique ID: " + data[0][i].uniqueID));
+
+                    $("#reservation-section").append(listGroupItem);
+                }
+
+                for (var i = 0; i < data[1].length; i++) {
+                    console.log(data[1]);
+                    var listGroupItem = $("<li class='list-group-item'>");
+
+                    listGroupItem.append($("<h2>").text("Name: " + data[1][i].name));
+                    listGroupItem.append($("<h3>").text("Email: " + data[1][i].email));
+                    listGroupItem.append($("<h3>").text("Phone Number: " + data[1][i].phone));
+                    listGroupItem.append($("<h3>").text("Unique ID: " + data[1][i].uniqueID));
+
+                    $("#waitlist-section").append(listGroupItem);
+                }
+            });
+        </script>
+
+</body>
+
+</html>
